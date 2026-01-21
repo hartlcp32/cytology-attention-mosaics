@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cytology Attention Map Mosaics</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .description {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .legend {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+            border: 1px solid #333;
+        }
+        .mosaic-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .mosaic-section img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .stats {
+            background: #e8f4f8;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cytology Attention Map Mosaics</h1>
+
+    <div class="description">
+        <h2>Overview</h2>
+        <p>These mosaics visualize GradCAM attention patterns from a ResNet50 model trained on cervical cytology cell classification (SIPaKMeD dataset, 4,049 cells, 5 classes).</p>
+        <p><strong>Key Finding:</strong> The model achieves 97.1% classification accuracy, but directs 23.1% of high-confidence attention to regions OUTSIDE the cell boundary.</p>
+
+        <div class="legend">
+            <strong>Boundary Legend:</strong><br><br>
+            <span class="legend-item"><span class="legend-color" style="background: yellow;"></span> Nucleus boundary</span>
+            <span class="legend-item"><span class="legend-color" style="background: cyan;"></span> Cytoplasm boundary</span>
+            <span class="legend-item"><span class="legend-color" style="background: red;"></span> High attention (&ge;0.75 GradCAM)</span>
+        </div>
+
+        <h3>Attention Distribution Summary</h3>
+        <table>
+            <tr>
+                <th>Cell Type</th>
+                <th>Nuclear %</th>
+                <th>Cytoplasm %</th>
+                <th>Extracellular %</th>
+            </tr>
+            <tr>
+                <td>Dyskeratotic</td>
+                <td>35.1%</td>
+                <td>45.9%</td>
+                <td>19.0%</td>
+            </tr>
+            <tr>
+                <td>Koilocytotic</td>
+                <td>28.1%</td>
+                <td>43.6%</td>
+                <td>28.3%</td>
+            </tr>
+            <tr>
+                <td>Metaplastic</td>
+                <td>13.4%</td>
+                <td>58.0%</td>
+                <td>28.6%</td>
+            </tr>
+            <tr>
+                <td>Parabasal</td>
+                <td>17.6%</td>
+                <td>52.8%</td>
+                <td>29.6%</td>
+            </tr>
+            <tr>
+                <td>Superficial-Intermediate</td>
+                <td>3.9%</td>
+                <td>85.6%</td>
+                <td>10.5%</td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td>Overall</td>
+                <td>19.6%</td>
+                <td>57.3%</td>
+                <td>23.1%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Full Mosaic - All 4,049 Cells</h2>
+        <p>Every cell in the dataset with nucleus (yellow), cytoplasm (cyan), and high-attention (red) boundaries overlaid.</p>
+        <a href="Full_Mosaic_All_Boundaries.png" target="_blank">
+            <img src="Full_Mosaic_All_Boundaries.png" alt="Full mosaic of all 4,049 cells">
+        </a>
+        <p><em>Click image to view full size</em></p>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Cells with &gt;50% Extracellular Attention</h2>
+        <div class="stats">712 cells (17.6% of dataset)</div>
+        <a href="Extracellular_GT50_Mosaic.png" target="_blank">
+            <img src="Extracellular_GT50_Mosaic.png" alt="Cells with >50% extracellular attention">
+        </a>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Cells with &gt;60% Extracellular Attention</h2>
+        <div class="stats">472 cells (11.7% of dataset)</div>
+        <a href="Extracellular_GT60_Mosaic.png" target="_blank">
+            <img src="Extracellular_GT60_Mosaic.png" alt="Cells with >60% extracellular attention">
+        </a>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Cells with &gt;70% Extracellular Attention</h2>
+        <div class="stats">280 cells (6.9% of dataset)</div>
+        <a href="Extracellular_GT70_Mosaic.png" target="_blank">
+            <img src="Extracellular_GT70_Mosaic.png" alt="Cells with >70% extracellular attention">
+        </a>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Cells with &gt;80% Extracellular Attention</h2>
+        <div class="stats">172 cells (4.2% of dataset)</div>
+        <a href="Extracellular_GT80_Mosaic.png" target="_blank">
+            <img src="Extracellular_GT80_Mosaic.png" alt="Cells with >80% extracellular attention">
+        </a>
+    </div>
+
+    <div class="mosaic-section">
+        <h2>Cells with &gt;90% Extracellular Attention</h2>
+        <div class="stats">91 cells (2.2% of dataset)</div>
+        <a href="Extracellular_GT90_Mosaic.png" target="_blank">
+            <img src="Extracellular_GT90_Mosaic.png" alt="Cells with >90% extracellular attention">
+        </a>
+    </div>
+
+    <div class="description">
+        <h2>Methods</h2>
+        <p><strong>Model:</strong> ResNet50 trained on SIPaKMeD cropped cell images (128x128 pixels)</p>
+        <p><strong>Attention Maps:</strong> GradCAM applied to final convolutional layer (layer4)</p>
+        <p><strong>High Attention Threshold:</strong> &ge;0.75 normalized GradCAM intensity</p>
+        <p><strong>Cell Boundaries:</strong> Pathologist annotations from SIPaKMeD dataset</p>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; color: #666;">
+        <p>Generated January 2026</p>
+    </footer>
+</body>
+</html>
