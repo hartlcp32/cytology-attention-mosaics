@@ -91,7 +91,7 @@
     <div class="description">
         <h2>Overview</h2>
         <p>These mosaics visualize GradCAM attention patterns from a ResNet50 model trained on cervical cytology cell classification (SIPaKMeD dataset, 4,049 cells, 5 classes).</p>
-        <p><strong>Key Finding:</strong> The model achieves 97.1% classification accuracy, but directs 23.1% of high-confidence attention to regions OUTSIDE the cell boundary.</p>
+        <p><strong>Key Finding:</strong> The model achieves 97.1% classification accuracy, but directs 36.7% of high-confidence attention to regions OUTSIDE the cell boundary.</p>
 
         <div class="legend">
             <strong>Boundary Legend:</strong><br><br>
@@ -100,7 +100,7 @@
             <span class="legend-item"><span class="legend-color" style="background: red;"></span> High attention (&ge;0.75 GradCAM)</span>
         </div>
 
-        <h3>Attention Distribution Summary</h3>
+        <h3>Attention Distribution Summary (10-Fold Cross-Validation)</h3>
         <table>
             <tr>
                 <th>Cell Type</th>
@@ -110,39 +110,39 @@
             </tr>
             <tr>
                 <td>Dyskeratotic</td>
-                <td>35.1%</td>
-                <td>45.9%</td>
-                <td>19.0%</td>
+                <td>14.0%</td>
+                <td>37.2%</td>
+                <td>48.7%</td>
             </tr>
             <tr>
                 <td>Koilocytotic</td>
-                <td>28.1%</td>
-                <td>43.6%</td>
-                <td>28.3%</td>
+                <td>17.4%</td>
+                <td>46.5%</td>
+                <td>36.1%</td>
             </tr>
             <tr>
                 <td>Metaplastic</td>
-                <td>13.4%</td>
-                <td>58.0%</td>
-                <td>28.6%</td>
+                <td>8.2%</td>
+                <td>50.6%</td>
+                <td>41.2%</td>
             </tr>
             <tr>
                 <td>Parabasal</td>
-                <td>17.6%</td>
-                <td>52.8%</td>
-                <td>29.6%</td>
+                <td>14.4%</td>
+                <td>49.2%</td>
+                <td>36.4%</td>
             </tr>
             <tr>
                 <td>Superficial-Intermediate</td>
-                <td>3.9%</td>
-                <td>85.6%</td>
-                <td>10.5%</td>
+                <td>3.8%</td>
+                <td>74.9%</td>
+                <td>21.3%</td>
             </tr>
             <tr style="font-weight: bold;">
                 <td>Overall</td>
-                <td>19.6%</td>
-                <td>57.3%</td>
-                <td>23.1%</td>
+                <td>11.6%</td>
+                <td>51.8%</td>
+                <td>36.7%</td>
             </tr>
         </table>
     </div>
@@ -167,7 +167,7 @@
 
     <div class="mosaic-section">
         <h2>Cells with &gt;50% Extracellular Attention</h2>
-        <div class="stats">712 cells (17.6% of dataset)</div>
+        <div class="stats">1,260 cells (31.1% of dataset)</div>
         <a href="Extracellular_GT50_Mosaic.png" target="_blank">
             <img src="Extracellular_GT50_Mosaic.png" alt="Cells with >50% extracellular attention">
         </a>
@@ -175,7 +175,7 @@
 
     <div class="mosaic-section">
         <h2>Cells with &gt;60% Extracellular Attention</h2>
-        <div class="stats">472 cells (11.7% of dataset)</div>
+        <div class="stats">883 cells (21.8% of dataset)</div>
         <a href="Extracellular_GT60_Mosaic.png" target="_blank">
             <img src="Extracellular_GT60_Mosaic.png" alt="Cells with >60% extracellular attention">
         </a>
@@ -183,7 +183,7 @@
 
     <div class="mosaic-section">
         <h2>Cells with &gt;70% Extracellular Attention</h2>
-        <div class="stats">280 cells (6.9% of dataset)</div>
+        <div class="stats">579 cells (14.3% of dataset)</div>
         <a href="Extracellular_GT70_Mosaic.png" target="_blank">
             <img src="Extracellular_GT70_Mosaic.png" alt="Cells with >70% extracellular attention">
         </a>
@@ -191,7 +191,7 @@
 
     <div class="mosaic-section">
         <h2>Cells with &gt;80% Extracellular Attention</h2>
-        <div class="stats">172 cells (4.2% of dataset)</div>
+        <div class="stats">329 cells (8.1% of dataset)</div>
         <a href="Extracellular_GT80_Mosaic.png" target="_blank">
             <img src="Extracellular_GT80_Mosaic.png" alt="Cells with >80% extracellular attention">
         </a>
@@ -199,7 +199,7 @@
 
     <div class="mosaic-section">
         <h2>Cells with &gt;90% Extracellular Attention</h2>
-        <div class="stats">91 cells (2.2% of dataset)</div>
+        <div class="stats">192 cells (4.7% of dataset)</div>
         <a href="Extracellular_GT90_Mosaic.png" target="_blank">
             <img src="Extracellular_GT90_Mosaic.png" alt="Cells with >90% extracellular attention">
         </a>
