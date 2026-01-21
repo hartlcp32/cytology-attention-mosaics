@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Cell Boundaries</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .toggle-group {
+            display: inline-block;
+            margin: 0 20px;
+            padding: 10px 20px;
+            background: #ecf0f1;
+            border-radius: 8px;
+        }
+        .toggle-group label {
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .toggle-group input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-left: 8px;
+            border: 1px solid #333;
+        }
+        .image-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .description {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Representative Cells (5×5 Grid)</h1>
+
+    <div class="controls">
+        <div class="toggle-group">
+            <label>
+                <input type="checkbox" id="annotationsToggle" checked>
+                Pathologist Annotations
+                <span class="legend-color" style="background: yellow;"></span>
+                <span class="legend-color" style="background: cyan;"></span>
+            </label>
+        </div>
+        <div class="toggle-group">
+            <label>
+                <input type="checkbox" id="attentionToggle" checked>
+                Attention Map (≥0.75)
+                <span class="legend-color" style="background: red;"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="image-container">
+        <a id="imageLink" href="grid_both.png" target="_blank">
+            <img id="gridImage" src="grid_both.png" alt="5x5 representative cell grid">
+        </a>
+        <p class="description">
+            <strong>Rows:</strong> Dyskeratotic, Koilocytotic, Metaplastic, Parabasal, Superficial-Intermediate<br>
+            <strong>Yellow:</strong> Nucleus boundary | <strong>Cyan:</strong> Cytoplasm boundary | <strong>Red:</strong> High attention (≥0.75 GradCAM)<br>
+            <em>Click image to view full size</em>
+        </p>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to all mosaics</a>
+
+    <script>
+        const annotationsToggle = document.getElementById('annotationsToggle');
+        const attentionToggle = document.getElementById('attentionToggle');
+        const gridImage = document.getElementById('gridImage');
+        const imageLink = document.getElementById('imageLink');
+
+        function updateImage() {
+            const showAnnotations = annotationsToggle.checked;
+            const showAttention = attentionToggle.checked;
+
+            let imageSrc;
+            if (showAnnotations && showAttention) {
+                imageSrc = 'grid_both.png';
+            } else if (showAnnotations && !showAttention) {
+                imageSrc = 'grid_annotations.png';
+            } else if (!showAnnotations && showAttention) {
+                imageSrc = 'grid_attention.png';
+            } else {
+                imageSrc = 'grid_base.png';
+            }
+
+            gridImage.src = imageSrc;
+            imageLink.href = imageSrc;
+        }
+
+        annotationsToggle.addEventListener('change', updateImage);
+        attentionToggle.addEventListener('change', updateImage);
+    </script>
+</body>
+</html>
